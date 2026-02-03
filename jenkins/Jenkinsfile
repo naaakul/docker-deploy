@@ -1,0 +1,17 @@
+pipeline {
+  agent any
+
+  stages {
+    stage('Pull Latest Code') {
+      steps {
+        git 'git@github.com:naaakul/DevOps.git'
+      }
+    }
+
+    stage('Deploy Locally via Ansible') {
+      steps {
+        sh 'ansible-playbook ansible/deploy-local.yml'
+      }
+    }
+  }
+}
