@@ -4,13 +4,15 @@ pipeline {
   stages {
     stage('Pull Latest Code') {
       steps {
-        git 'git@github.com:naaakul/DevOps.git'
+        git credentialsId: 'github-ssh', url: 'git@github.com:naaakul/docker-deploy.git'
       }
     }
 
     stage('Deploy Locally via Ansible') {
       steps {
-        sh 'ansible-playbook ansible/deploy-local.yml'
+        bat '''
+        wsl bash -c "cd /mnt/c/ProgramData/Jenkins/.jenkins/workspace/deploy-docker && ansible-playbook ansible/deploy-local.yml"
+        '''
       }
     }
   }

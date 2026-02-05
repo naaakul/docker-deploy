@@ -1,5 +1,5 @@
 - name: Deploy docker-deploy app locally with Docker
-  hosts: local
+  hosts: vm
   become: yes
 
   vars:
