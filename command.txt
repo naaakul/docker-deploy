@@ -1,0 +1,10 @@
+- build db image
+    docker run -d --name mysql-db --network db-net -e MYSQL_ROOT_PASSWORD=rootpass -e MYSQL_DATABASE=appdb -e MYSQL_USER=appuser -e MYSQL_PASSWORD=apppass -v "%cd%\init.sql:/docker-entrypoint-initdb.d/init.sql:ro" mysql:8.0
+- connect db to app
+    docker network connect db-net nextjs-app
+- build app image 
+    docker build -t next-app .
+- run container with attached volume 
+    docker run -d --name nextjs-app --network app-net -p 3000:3000 -e DB_HOST=mysql-db -e DB_USER=appuser -e DB_PASS=apppass -e DB_NAME=appdb next-app
+- execute database
+    docker exec -it mysql-db mysql -u root -p
