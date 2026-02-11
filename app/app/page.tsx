@@ -1,51 +1,19 @@
-"use client";
-import { useEffect, useState } from "react";
+import React from "react";
 
-export default function Home() {
-  const [users, setUsers] = useState<any[]>([]);
-  const [name, setName] = useState("");
-
-  const loadUsers = async () => {
-    const res = await fetch("/api/users");
-    setUsers(await res.json());
-  };
-
-  const addUser = async () => {
-    await fetch("/api/users", {
-      method: "POST",
-      body: JSON.stringify({ name }),
-    });
-    setName("");
-    loadUsers();
-  };
-
-  useEffect(() => {
-    loadUsers();
-  }, []);
-
+const page = () => {
   return (
-    <div className="h-screen flex justify-center items-center flex-col">
-      <h1>Users</h1>
-      <div className="flex gap-5">
-        <input
-          className="border border-white rounded"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <button
-          onClick={addUser}
-          className="bg-white rounded py-1 px-4 text-black"
-        >
-          Add
-        </button>
+    <a href="https://nakul.space">
+      <div className="bg-[#0a0a0a] flex justify-center items-center h-screen w-full flex-col">
+        <p className="text-5xl text-neutral-400 font-mono ">
+          THIS IS THE APP OF{" "}
+          <span className="text-neutral-200">
+             NAKUL CHOUKSEY
+          </span>
+        </p>
+        <p className="text-neutral-400 font-mono">click to see the magic</p>
       </div>
-      <ul className="bg-white text-black p-5 rounded">
-        {users.map((u) => (
-          <li key={u.id}>
-            {u.id} - {u.name}
-          </li>
-        ))}
-      </ul>
-    </div>
+    </a>
   );
-}
+};
+
+export default page;
